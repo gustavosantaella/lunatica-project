@@ -4,8 +4,8 @@
 
 @section('content_header')
     <div class="d-flex flex-row justify-content-between ">
-        <h1>Customers</h1>
-        <a href="{{ route('customers.create') }}" class="btn btn-primary">Create</a>
+        <h1>Clientes</h1>
+        <a href="{{ route('customers.create') }}" class="btn btn-primary">Crear</a>
     </div>
 @stop
 
