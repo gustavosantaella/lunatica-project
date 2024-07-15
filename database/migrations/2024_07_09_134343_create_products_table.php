@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer("stock")->default(0);
             $table->float("price")->default(0.0);
             $table->boolean("active")->default(false);
-            $table->foreignId("provider_id")->constrained("providers")->onDelete("cascade");
+            // $table->foreignId("provider_id")->constrained("providers")->onDelete("cascade");
             $table->timestamps();
         });
     }

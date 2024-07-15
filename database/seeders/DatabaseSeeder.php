@@ -22,14 +22,11 @@ class DatabaseSeeder extends Seeder
             $user = User::create([
                 'name' => 'Test User',
                 'email' => 'admin@test.com',
+                "password" => bcrypt("password"),
             ]);
         }
 
-        $provider = Provider::create([
-            "name" => str("shein")->upper(),
-            "address" => str("USA NY 45")->upper(),
-            "phone" => str("+xxxxxxx")->upper(),
-        ]);
+
 
         Customer::create([
             "name" => "Gustavo",
@@ -42,7 +39,6 @@ class DatabaseSeeder extends Seeder
             "brand" => str("sheing")->upper(),
             "stock" => random_int(1, 100),
             "price" => rand(1, 100),
-            "provider_id" => $provider->id,
         ]);
 
 

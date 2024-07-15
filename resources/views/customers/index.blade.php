@@ -10,29 +10,38 @@
 @stop
 
 @section('content')
-    <div>
-        <table class="table">
+    <div class="w-100">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <td>
-                        Name
+                        Nombre
                     </td>
                     <td>
-                        Phone
+                        Tlfn
                     </td>
                     <td>
-                        Address
+                        Correo
                     </td>
 
                 </tr>
             </thead>
             <tbody>
                 @foreach ($customers as  $customer)
-                        <tr>
-                            <td>{{ $customer->name }}</td>
-                            <td>{{ $customer->phone }}</td>
-                            <td>{{ $customer->email }}</td>
-                        </tr>
+                <tr>
+                    <td>{{ $customer->nombre }}</td>
+                    <td>{{ $customer->tlfn }}</td>
+                    <td>{{ $customer->correo }}</td>
+                    <td>
+                        <a href="{{ route("customers.edit", ['customer' => $customer->id]) }}" class="fas fa-edit"></a>
+                        <a  href="{{ route("customers.destroy", ['customer' => $customer->id]) }}" class="fas fa-trash  text-danger"></a>
+                    </td>
+
+                </tr>
+
+
+
+
                 @endforeach
             </tbody>
         </table>

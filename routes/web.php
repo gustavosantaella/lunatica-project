@@ -22,10 +22,11 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::prefix('/customers')->as("customers.")->group(function ($r) {
     Route::get("/", [CustomerController::class, "index"])->name("index");
-    Route::get("/create", [CustomerController::class, "index"])->name("create");
-    Route::get("/edit", [CustomerController::class, "index"])->name("create");
-    Route::get("/update", [CustomerController::class, "index"])->name("create");
-    Route::get("/destroy", [CustomerController::class, "index"])->name("create");
+    Route::get("/create", [CustomerController::class, "create"])->name("create");
+    Route::post("/store", [CustomerController::class, "store"])->name("store");
+    Route::get("/edit/{customer}", [CustomerController::class, "edit"])->name("edit");
+    Route::put("/update/{customer}", [CustomerController::class, "index"])->name("update");
+    Route::get("/destroy/{customer}", [CustomerController::class, "destroy"])->name("destroy");
 });
 
 
