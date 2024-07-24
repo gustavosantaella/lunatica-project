@@ -318,33 +318,24 @@ return [
         ],
         [
             'text' => 'Productos',
-            'url' => 'admin/clients',
+            'url' => 'products',
             'icon' => 'far fa-fw fa-file',
         ],
-        [
-            'text' => 'Descuentos',
-            'url' => 'admin/clients',
-            'icon' => 'far fa-fw fa-file',
-        ],
-        [
-            'text' => 'Empleados',
-            'url' => 'admin/clients',
-            'icon' => 'far fa-fw fa-file',
-        ],
+
         [
             'text' => 'Ventas',
-            'url' => 'admin/clients',
+            'url' => 'sales',
             'icon' => 'far fa-fw fa-file',
         ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'admin/settings',
+            'url' => 'settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url' => 'admin/settings',
+            'url' => 'settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [

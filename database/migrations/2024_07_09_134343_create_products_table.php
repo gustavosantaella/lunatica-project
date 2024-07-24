@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("brand");
-            $table->integer("stock")->default(0);
-            $table->float("price")->default(0.0);
-            $table->boolean("active")->default(false);
+            $table->string("nombre");
+            $table->string("foto")->nullable()->default("https://random.imagecdn.app/500/150");
+            $table->integer("cantidad")->default(0);
+            $table->float("precio")->default(0.0);
+            $table->boolean("activo")->default(false);
             // $table->foreignId("provider_id")->constrained("providers")->onDelete("cascade");
             $table->timestamps();
         });

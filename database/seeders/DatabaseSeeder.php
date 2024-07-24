@@ -29,16 +29,16 @@ class DatabaseSeeder extends Seeder
 
 
         Customer::create([
-            "name" => "Gustavo",
-            "phone" => "+xxxxxx",
-            "email" => "customer@test.com",
+            "nombre" => "Gustavo",
+            "tlfn" => "+xxxxxx",
+            "correo" => "customer@test.com",
         ]);
 
         Product::create([
-            "name" => str("short")->upper(),
-            "brand" => str("sheing")->upper(),
-            "stock" => random_int(1, 100),
-            "price" => rand(1, 100),
+            "nombre" => str("short")->upper(),
+            // "foto" => str("sheing")->upper(),
+            "precio" => random_int(1, 100),
+            "cantidad" => rand(1, 100),
         ]);
 
 

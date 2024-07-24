@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/tienda', [HomeController::class,'index'])->name('home');
 
 Route::prefix('/customers')->as("customers.")->group(function ($r) {
     Route::get("/", [CustomerController::class, "index"])->name("index");
@@ -32,10 +32,11 @@ Route::prefix('/customers')->as("customers.")->group(function ($r) {
 
 Route::prefix('/products')->as("products.")->group(function ($r) {
     Route::get("/", [ProductController::class, "index"])->name("index");
-    Route::get("/create", [ProductController::class, "index"])->name("create");
-    Route::get("/edit", [ProductController::class, "index"])->name("create");
-    Route::get("/update", [ProductController::class, "index"])->name("create");
-    Route::get("/destroy", [ProductController::class, "index"])->name("create");
+    Route::get("/create", [ProductController::class, "create"])->name("create");
+    Route::post("/store", [ProductController::class, "store"])->name("store");
+    Route::get("/edit/{product}", [ProductController::class, "edit"])->name("edit");
+    Route::put("/update/{product}", [ProductController::class, "update"])->name("update");
+    Route::get("/destroy/{product}", [ProductController::class, "destroy"])->name("destroy");
 });
 
 Route::prefix('/users')->as("users.")->group(function ($r) {
