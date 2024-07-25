@@ -34,7 +34,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Tienda <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{ route('home') }}">Tienda <span class="sr-only">(current)</span></a>
                             </li>
 
                         </ul>
@@ -51,7 +51,7 @@
                 <div>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('cart') }}">
                                 <button class="btn btn-primary">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </button></a>
