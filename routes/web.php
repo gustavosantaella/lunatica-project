@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
@@ -21,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix("/tienda")->group(function () {
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/carrito', [CartController::class, 'index'])->name('cart');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/carrito', [CartController::class, 'index'])->name('cart');
 });
 
 Route::prefix('/admin')->group(function () {
@@ -57,9 +58,11 @@ Route::prefix('/admin')->group(function () {
 
     Route::prefix('/sales')->as("sales.")->group(function ($r) {
         Route::get("/", [SaleController::class, "index"])->name("index");
-        Route::get("/create", [SaleController::class, "index"])->name("create");
-        Route::get("/edit", [SaleController::class, "index"])->name("create");
-        Route::get("/update", [SaleController::class, "index"])->name("create");
-        Route::get("/destroy", [SaleController::class, "index"])->name("create");
+        Route::get("/create", [SaleController::class, "create"])->name("create");
+        Route::post("/", [SaleController::class, "store"])->name("store");
+        Route::get("/{sale}/edit", [SaleController::class, "edit"])->name("edit");
+        Route::put("/{sale}", [SaleController::class, "update"])->name("update");
+        Route::delete("/{sale}", [SaleController::class, "destroy"])->name("destroy");
     });
+    Route::resource('discounts', DiscountController::class);
 });

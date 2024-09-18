@@ -327,6 +327,11 @@ return [
             'url' => '/admin/sales',
             'icon' => 'fas fa-dollar-sign',
         ],
+        [
+            'text' => 'Descuentos',
+            'url' => '/admin/discounts',
+            'icon' => 'fa fa-percent',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
