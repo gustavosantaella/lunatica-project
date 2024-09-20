@@ -9,5 +9,17 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected $table = 'cars';
+    protected $fillable = ['customer_id'];
+
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+
+    public function items()
+    {
+        return $this->hasMany(CarItem::class);
+    }
 }

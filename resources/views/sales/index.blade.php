@@ -27,7 +27,7 @@
                         <td>{{ $sale->product->nombre }}</td>
                         <td>{{ $sale->customer->nombre }}</td>
                         <td>{{ $sale->price }}</td>
-                        <td>{{ optional($sale->discount)->nombre ?? 'Sin Descuento' }}</td>
+                        <td>{{ optional($sale->discount)->name ?? 'Sin Descuento' }}</td>
                         <td>
                             <a href="{{ route('sales.edit', ['sale' => $sale->id]) }}" class="fas fa-edit"></a>
                             <form action="{{ route('sales.destroy', ['sale' => $sale->id]) }}" method="POST"

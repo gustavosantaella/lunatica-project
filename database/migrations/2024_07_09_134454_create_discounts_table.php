@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nombre del descuento
-            $table->enum('type', ['percentage', 'fixed']); // Tipo de descuento: porcentaje o valor fijo
-            $table->float('value'); // Valor del descuento (porcentaje o cantidad fija)
-            $table->date('start_date')->nullable(); // Fecha de inicio del descuento
-            $table->date('end_date')->nullable(); // Fecha de finalización del descuento
-            $table->boolean('active')->default(true); // Si el descuento está activo o no
+            $table->string('name');
+            $table->enum('type', ['percentage', 'fixed']);
+            $table->float('value');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

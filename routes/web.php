@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,9 @@ Route::prefix("/tienda")->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/carrito', [CartController::class, 'index'])->name('cart');
+    Route::post('/carrito/store', [CarController::class, 'store'])->name('car.store');
+    Route::put('/{carItem}', [CarController::class, 'update'])->name('car.update');
+    Route::delete('/{carItem}', [CarController::class, 'destroy'])->name('car.destroy');
 });
 
 Route::prefix('/admin')->group(function () {
@@ -65,4 +70,14 @@ Route::prefix('/admin')->group(function () {
         Route::delete("/{sale}", [SaleController::class, "destroy"])->name("destroy");
     });
     Route::resource('discounts', DiscountController::class);
+    Route::get('/cars', [CarController::class, 'index'])->name('admin.car.index');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 });

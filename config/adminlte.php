@@ -332,6 +332,11 @@ return [
             'url' => '/admin/discounts',
             'icon' => 'fa fa-percent',
         ],
+        [
+            'text' => 'Carrito',
+            'url' => '/admin/cars',
+            'icon' => 'fa fa-shopping-cart',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
