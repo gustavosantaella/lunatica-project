@@ -5,3 +5,5 @@ WORKDIR /var/www/html
 COPY . .
 
 RUN chmod +x deploy.sh
+
+RUN php artisan serve
