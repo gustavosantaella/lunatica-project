@@ -6,6 +6,5 @@ COPY . .
 
 RUN chmod +x deploy.sh
 
-RUN php artisan serve
 
 RUN "echo deployed"
