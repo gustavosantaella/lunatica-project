@@ -28,10 +28,11 @@
                         <td>{{ $product->nombre }}</td>
                         <td>{{ $product->precio }}</td>
                         <td>{{ $product->cantidad }}</td>
-                        <td class="d-flex">
+                        <td class="flex">
                             <!-- Enlace para editar el producto -->
                             <a href="{{ route('products.edit', ['product' => $product->id]) }}"
                                 class="fas fa-edit mr-2"></a>
+
 
                             <!-- Enlace para eliminar el producto -->
                             <form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="POST"

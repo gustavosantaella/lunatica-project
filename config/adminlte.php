@@ -310,7 +310,11 @@ return [
         //     'type' => 'sidebar-menu-search',
         //     'text' => 'search',
         // ],
-
+        [
+            'text' => 'Usuarios',
+            'url' => '/admin/users',
+            'icon' => 'fa fa-users',
+        ],
         [
             'text' => 'Clientes',
             'url' => '/admin/customers',

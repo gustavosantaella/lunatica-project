@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
+
 Route::prefix("/tienda")->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -31,7 +33,7 @@ Route::prefix("/tienda")->group(function () {
     Route::delete('/{carItem}', [CarController::class, 'destroy'])->name('car.destroy');
 });
 
-Route::prefix('/admin')->group(function () {
+Route::prefix('/admin')->middleware(['auth'])->group(function () {
 
     Route::prefix('/customers')->as("customers.")->group(function ($r) {
         Route::get("/", [CustomerController::class, "index"])->name("index");
@@ -39,7 +41,7 @@ Route::prefix('/admin')->group(function () {
         Route::post("/store", [CustomerController::class, "store"])->name("store");
         Route::get("/edit/{customer}", [CustomerController::class, "edit"])->name("edit");
         Route::put("/update/{customer}", [CustomerController::class, "index"])->name("update");
-        Route::get("/destroy/{customer}", [CustomerController::class, "destroy"])->name("destroy");
+        Route::delete("/destroy/{customer}", [CustomerController::class, "destroy"])->name("destroy");
     });
 
 
@@ -49,16 +51,10 @@ Route::prefix('/admin')->group(function () {
         Route::post("/store", [ProductController::class, "store"])->name("store");
         Route::get("/edit/{product}", [ProductController::class, "edit"])->name("edit");
         Route::put("/update/{product}", [ProductController::class, "update"])->name("update");
-        Route::get("/destroy/{product}", [ProductController::class, "destroy"])->name("destroy");
+        Route::delete("/destroy/{product}", [ProductController::class, "destroy"])->name("destroy");
     });
 
-    Route::prefix('/users')->as("users.")->group(function ($r) {
-        Route::get("/", [UserController::class, "index"])->name("index");
-        Route::get("/create", [UserController::class, "index"])->name("create");
-        Route::get("/edit", [UserController::class, "index"])->name("create");
-        Route::get("/update", [UserController::class, "index"])->name("create");
-        Route::get("/destroy", [UserController::class, "index"])->name("create");
-    });
+    Route::resource('users', UserController::class);
 
 
     Route::prefix('/sales')->as("sales.")->group(function ($r) {
