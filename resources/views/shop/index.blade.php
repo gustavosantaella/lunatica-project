@@ -19,7 +19,13 @@
 
                     <div class="card-footer">
                         <div class="card-text mb-3">Cantidad disponible: {{ $product->cantidad }}</div>
-                        <button class="btn btn-danger">Agregar al carrito</button>
+                        <form action="{{ route('car.store') }}" method="POST"
+                            style="display:inline-block; margin-left: 10px;">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-danger">Añadir al carrito</button>
+                        </form>
                     </div>
 
                 </div>
