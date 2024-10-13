@@ -2,30 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Car;
-use App\Models\CarItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
-    // Obtener el ID de carrito único de la sesión o crearlo si no existe
-    protected function getSessionCarId()
-    {
-        if (!session()->has('car_id')) {
-            // Generar un ID único para el carrito y almacenarlo en la sesión
-            session(['car_id' => Str::uuid()]);
-        }
-
-        return session('car_id');
-    }
-
     // Mostrar el carrito del visitante
     public function index()
     {
-        // Obtener o crear el carrito utilizando el ID de la sesión
-        $car = Car::with('items.product')->where('session_id', $this->getSessionCarId())->first();
+
+        $car = session()->get('car', []);
 
         return view('car.index', compact('car'));
     }
@@ -38,42 +24,65 @@ class CarController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        // Obtener el ID de carrito de la sesión
-        $sessionCarId = $this->getSessionCarId();
+        $product = Product::findOrFail($request->product_id);
 
-        // Buscar o crear un carrito con el ID de sesión
-        $car = Car::firstOrCreate(['session_id' => $sessionCarId]);
+        $car = session()->get('car', []);
 
-        // Buscar o crear un ítem en el carrito
-        $carItem = CarItem::firstOrCreate([
-            'car_id' => $car->id,
-            'product_id' => $request->product_id,
-        ]);
+        if (isset($car[$product->id])) {
+            $car[$product->id]['quantity'] += $request->quantity;
+        } else {
 
-        // Actualizar la cantidad
-        $carItem->quantity += $request->quantity;
-        $carItem->save();
+            $car[$product->id] = [
+                'nombre' => $product->nombre,
+                'precio' => $product->precio,
+                'quantity' => $request->quantity
+            ];
+        }
 
-        return redirect()->back()->with('success', 'Producto agregado al carrito');
+
+        session()->put('car', $car);
+
+        return redirect()->back()->with('message', ['type' => 'success', 'title' => 'Carrito', 'text' => 'Producto agregado al carrito']);
     }
 
+
     // Actualizar la cantidad de un producto en el carrito
-    public function update(Request $request, CarItem $carItem)
+    public function update(Request $request, $productId)
     {
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $carItem->update(['quantity' => $request->quantity]);
+        // Obtener el carrito de la sesión
+        $car = session()->get('car', []);
 
-        return redirect()->back()->with('success', 'Cantidad actualizada');
+        if (isset($car[$productId])) {
+            // Actualizamos la cantidad del producto
+            $car[$productId]['quantity'] = $request->quantity;
+            session()->put('car', $car);
+
+            return redirect()->back()->with('message', ['type' => 'success', 'title' => 'Carrito', 'text' => 'Cantidad actualizada']);
+        }
+
+        return redirect()->back()->with('message', ['type' => 'error', 'title' => 'Carrito', 'text' => 'Producto no encontrado en el carrito']);
     }
 
     // Eliminar un producto del carrito
-    public function destroy(CarItem $carItem)
+    public function destroy($productId)
     {
-        $carItem->delete();
+        // Obtener el carrito de la sesión
+        $car = session()->get('car', []);
 
-        return redirect()->back()->with('success', 'Producto eliminado del carrito');
+        if (isset($car[$productId])) {
+            // Eliminar el producto del carrito
+            unset($car[$productId]);
+
+            // Guardar el carrito actualizado en la sesión
+            session()->put('car', $car);
+
+            return redirect()->back()->with('message', ['type' => 'success', 'title' => 'Carrito', 'text' => 'Producto eliminado del carrito']);
+        }
+
+        return redirect()->back()->with('message', ['type' => 'error', 'title' => 'Carrito', 'text' => 'Producto no encontrado en el carrito']);
     }
 }
